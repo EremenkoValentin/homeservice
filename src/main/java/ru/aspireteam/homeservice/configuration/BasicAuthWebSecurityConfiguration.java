@@ -9,16 +9,14 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-public class BasicAuthWebSecurityConfiguration
-{
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+public class BasicAuthWebSecurityConfiguration {
+        @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
-                .authorizeRequests().anyRequest().authenticated()
+                .authorizeHttpRequests()
+                .requestMatchers("/**").hasRole("USER")
                 .and()
                 .httpBasic();
-
         return http.build();
     }
 
